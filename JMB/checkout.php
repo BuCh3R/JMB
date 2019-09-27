@@ -19,12 +19,12 @@
   }
 }
     </script> -->
-    <!-- <script>
+    <script>
 $(window).load(function()
 {
     $('#myModal').modal('show');
 });
-</script> -->
+</script>
 </head>
 <body>
 <?php include 'menu.php'; ?>
@@ -99,21 +99,13 @@ if(isset($_SESSION['orderId'])){
         $result3 = mysqli_query($conn, $sql3);
         while ($row3 = $result3->fetch_assoc()){
           $itemName = $row3['itemName'];
-          $stringName[] = "<button class='no-border bg-fff-white' type='submit' name='delete-submit'><a href='#!' class='no-hover big-viewport underline-hover black-color'>
-          <span class='glyphicon glyphicon-remove-circle red'></span>
-      </a></button>".$row3['itemName']." ";
+          $stringName[] = $row3['itemName']." ";
           $stringPrice[] = $row3['price'];
           $single_array[] = $row3['itemName'];
   ?>
-<form action="includes/removeitem.inc.php" method="POST">
-  <button class='no-border' type='submit' name='user-itemremove'>
-    <a href='#!' class='no-hover big-viewport underline-hover black-color'>
-      <span class='glyphicon glyphicon-remove-circle red'>
 
-      </span>
-    </a>
-  </button>
-</form>
+
+
   <?php
   
   //         echo "<div class='container-fluid'>
@@ -147,11 +139,16 @@ if(isset($_SESSION['orderId'])){
           <div class='row'>
             <div class='col-md-8 col-md-offset-2 whiteboard-checkout'> 
                 <div class='checkout-div-1'>
-                  <h1>Your cart</h1>
+                  <h1>Your cart
+                  <form action='includes/removeitem.inc.php' method='POST'>
+                  <button class='no-border bg-fff-white' type='submit' name='user-itemremove'>Empty cart<a href='#!' class='no-hover big-viewport underline-hover black-color'>
+                  <span class='glyphicon glyphicon-trash gray'></span>
+                  </a></button></h1>
+                  </form>
                 </div>";
   echo "<div class='flex-shop'>
           <div class='checkout-div-2-info'>
-            <h1>".implode('<br>', $stringName)."</h1>
+            <h1>".implode('<br>', $stringName)."</h1><h1 class='total-price'>Total</h1>
           </div>";
   // $stringPrice skal lægges sammen og så vise både single og total output //
   
@@ -168,8 +165,8 @@ if(isset($_SESSION['orderId'])){
 
 ?>
 <form action='includes/checkout.inc.php' method='post'>
-              <button class='btn btn-default' type='submit' name='checkout-submit'>Go to payment</button>
-              </form>
+  <button class='btn btn-default' type='submit' name='checkout-submit'>Go to payment</button>
+</form>
 <?php include 'footer.php'; ?>
 </body>
 </html>
